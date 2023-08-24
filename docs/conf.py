@@ -17,9 +17,11 @@ author = u"Max Serra"
 # ones.
 extensions = [
     "myst_nb",
-    "autoapi.extension",
+    "sphinx.ext.autodoc",
+    "sphinx.ext.inheritance_diagram",
     "sphinx.ext.napoleon",
     "sphinx.ext.viewcode",
+    "autoapi.sphinx",
 ]
 autoapi_dirs = ["../src"]
 
