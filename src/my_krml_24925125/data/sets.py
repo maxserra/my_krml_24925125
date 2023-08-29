@@ -25,7 +25,7 @@ def pop_target(df, target_col):
     return df_copy, target
 
 
-def split_sets_random(features, target, test_ratio=0.2):
+def split_sets_random(features, target, test_ratio=0.2, stratify=None):
     """Split sets randomly
 
     Parameters
@@ -36,6 +36,8 @@ def split_sets_random(features, target, test_ratio=0.2):
         Target column
     test_ratio : float
         Ratio used for the validation and testing sets (default: 0.2)
+    stratify : array-like
+        Wheather to stratify data. Relevant for inbalanced data sets
 
     Returns
     -------
@@ -55,8 +57,10 @@ def split_sets_random(features, target, test_ratio=0.2):
     from sklearn.model_selection import train_test_split
 
     val_ratio = test_ratio / (1 - test_ratio)
-    X_data, X_test, y_data, y_test = train_test_split(features, target, test_size=test_ratio, random_state=8)
-    X_train, X_val, y_train, y_val = train_test_split(X_data, y_data, test_size=val_ratio, random_state=8)
+    X_data, X_test, y_data, y_test = train_test_split(features, target, test_size=test_ratio, 
+                                                      random_state=8, stratify=stratify)
+    X_train, X_val, y_train, y_val = train_test_split(X_data, y_data, test_size=val_ratio, 
+                                                      random_state=8, stratify=stratify)
 
     return X_train, y_train, X_val, y_val, X_test, y_test
 
