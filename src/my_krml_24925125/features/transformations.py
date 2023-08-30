@@ -6,7 +6,9 @@ from sklearn.preprocessing import StandardScaler, OneHotEncoder
 
 def scale_and_encode(data: pd.DataFrame,  # only features, no target needed here
                      scaler = None,
+                     fit_scaler = False,
                      encoder = None,
+                     fit_encoder = False,
                      ignore_cols: List[str] = None,
                      return_transformers: bool = True):
 
@@ -24,6 +26,8 @@ def scale_and_encode(data: pd.DataFrame,  # only features, no target needed here
         temp_scaler.fit(temp_data[numeric_cols])
     else:
         temp_scaler = scaler
+        if fit_scaler:
+            temp_scaler.fit(temp_data[numeric_cols])
 
     if encoder is None:
         temp_encoder = OneHotEncoder(drop="first",
@@ -33,6 +37,8 @@ def scale_and_encode(data: pd.DataFrame,  # only features, no target needed here
         temp_encoder.fit(temp_data[categorical_cols])
     else:
         temp_encoder = encoder
+        if fit_encoder:
+            temp_encoder.fit(temp_data[categorical_cols])
 
     out_data = temp_encoder.transform(temp_data[categorical_cols])
     out_data = pd.DataFrame(out_data, columns=temp_encoder.get_feature_names_out())
