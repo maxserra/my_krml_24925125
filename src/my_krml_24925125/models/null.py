@@ -33,7 +33,7 @@ class NullRegressor:
 
     def fit(self, y):
         self.y = y
-        self.pred_value = y.mean()
+        self.pred_value = y.mean()[0][0]
 
     def predict(self, y):
         self.preds = np.full((len(y), 1), self.pred_value)
