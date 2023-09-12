@@ -8,7 +8,7 @@ if __name__ == "__main__":
     major, minor, patch = version.split(".")
 
     new_patch = int(patch) + 1
-    new_version = ".".join([major, minor, new_patch])
+    new_version = ".".join([major, minor, str(new_patch)])
 
     print(f"Bumping up patch from {module}...")
     print(f"From version ({version}) to ({new_version})")
