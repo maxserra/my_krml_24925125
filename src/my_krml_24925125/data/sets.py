@@ -60,7 +60,7 @@ def split_sets_random(features, target, test_ratio=0.2, stratify=None):
     X_data, X_test, y_data, y_test = train_test_split(features, target, test_size=test_ratio, 
                                                       random_state=8, stratify=stratify)
     X_train, X_val, y_train, y_val = train_test_split(X_data, y_data, test_size=val_ratio, 
-                                                      random_state=8, stratify=stratify)
+                                                      random_state=8, stratify=y_data)
 
     return X_train, y_train, X_val, y_val, X_test, y_test
 
