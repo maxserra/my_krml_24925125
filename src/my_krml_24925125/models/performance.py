@@ -19,8 +19,12 @@ def print_regressor_scores(y_preds, y_actuals, set_name=None):
     Returns
     -------
     """
-    print(f"RMSE {set_name}: {mean_squared_error(y_actuals, y_preds, squared=False)}")
-    print(f"MAE {set_name}: {mean_absolute_error(y_actuals, y_preds)}")
+    rmse = mean_squared_error(y_actuals, y_preds, squared=False)
+    mae = mean_absolute_error(y_actuals, y_preds)
+    print(f"RMSE {set_name}: {rmse}")
+    print(f"MAE {set_name}: {mae}")
+
+    return rmse, mae
 
 
 def assess_regressor_set(model: sklearn.base.BaseEstimator,
@@ -42,7 +46,7 @@ def assess_regressor_set(model: sklearn.base.BaseEstimator,
     -------
     """
     preds = model.predict(features)
-    print_regressor_scores(y_preds=preds, y_actuals=target, set_name=set_name)
+    return print_regressor_scores(y_preds=preds, y_actuals=target, set_name=set_name)
 
 
 def fit_assess_regressor(model: sklearn.base.BaseEstimator,
@@ -68,9 +72,13 @@ def fit_assess_regressor(model: sklearn.base.BaseEstimator,
     -------
     """
     model.fit(X_train, y_train)
-    assess_regressor_set(model, X_train, y_train, set_name='Training')
-    assess_regressor_set(model, X_val, y_val, set_name='Validation')
-    return model
+    train_rmse, train_mae = assess_regressor_set(model, X_train, y_train, set_name='Training')
+    val_rmse, val_mae = assess_regressor_set(model, X_val, y_val, set_name='Validation')
+    return {"model": model,
+            "train_rmse": train_rmse,
+            "train_mae": train_mae,
+            "val_rmse": val_rmse,
+            "val_mae": val_mae}
 
 
 def print_classifier_scores(y_preds, y_actuals, set_name=None):
