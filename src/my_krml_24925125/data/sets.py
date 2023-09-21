@@ -25,6 +25,16 @@ def pop_target(df, target_col):
     return df_copy, target
 
 
+def downcast(data: pd.DataFrame):
+    
+    for col in data.select_dtypes("number"):
+        data[col] = pd.to_numeric(data[col], downcast="integer")
+        if data[col].dtype == "float":
+            data[col] = pd.to_numeric(data[col], downcast="float")
+            
+    return data
+
+
 def split_sets_random(features, target, test_ratio=0.2, stratify=None):
     """Split sets randomly
 
