@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "my_krml_24925125"
-version = "0.1.13"
+version = "0.1.14"
 description = "A package for doing great things!"
 authors = ["Max Serra"]
 license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "3.9.13"
+python = "3.9"
 pandas = "^2.0.1"
 scikit-learn = "1.2.2"
 
